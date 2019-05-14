@@ -8,11 +8,20 @@
         public function asset($filename)
         {
 
-            return asset($filename) . '?version=' . $this->getVersion($filename);
+            return asset($filename) . '?version=' . $this->slice($this->getVersion($filename));
 
         }
 
-        public function getVersion($filename)
+        private function slice($val)
+        {
+
+            $res = chunk_split($val, 5, '-');
+
+            return substr($res, 0, 22);
+
+        }
+
+        private function getVersion($filename)
         {
 
             if (file_exists(public_path($filename))){
